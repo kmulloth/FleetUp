@@ -3,9 +3,12 @@ import thunk from 'redux-thunk';
 import { restoreCSRF, csrfFetch } from './csrf';
 import sessionReducer from './session';
 import * as sessionActions from './session';
+import eventReducer from './event';
+import * as eventActions from './event';
 
 const rootReducer = combineReducers({
-  session: sessionReducer
+  session: sessionReducer,
+  event: eventReducer
 });
 
 let enhancer;
@@ -31,6 +34,7 @@ if (process.env.NODE_ENV !== 'production') {
     window.csrfFetch = csrfFetch;
     window.store = store;
     window.sessionActions = sessionActions;
+    window.eventActions = eventActions;
   }
 
 export default configureStore;
