@@ -16,11 +16,10 @@ router.get(
   })
 );
 
-router.post(
-  "/new",
-  asyncHandler(async (req, res) => {
-    const event = await Event.create(req.body);
+router.post("/", asyncHandler(async (req, res) => {
+    const event = await Event.create(res.body);
     res.json(event);
+    res.redirect('/')
   })
 );
 
