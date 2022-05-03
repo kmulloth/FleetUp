@@ -5,10 +5,13 @@ import sessionReducer from './session';
 import * as sessionActions from './session';
 import eventReducer from './events';
 import * as eventActions from './events';
+import groupsReducer from './groups';
+import * as groupsActions from './groups';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  events: eventReducer
+  events: eventReducer,
+  groups: groupsReducer
 });
 
 let enhancer;
@@ -35,6 +38,7 @@ if (process.env.NODE_ENV !== 'production') {
     window.store = store;
     window.sessionActions = sessionActions;
     window.eventActions = eventActions;
+    window.groupsActions = groupsActions;
   }
 
 export default configureStore;

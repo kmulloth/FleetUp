@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import Group from "./components/Groups";
 import Landing from "./components/Landing";
 import Splash from "./components/Splash";
+import EventForm from "./components/EventForm";
+import EventDetail from "./components/EventDetail";
 
 function App() {
   const sessionUser = useSelector(state => state.session.user);
@@ -36,8 +38,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/groups">
+          <Route path="/api/groups">
             <Group />
+          </Route>
+          <Route path="/api/events/new">
+            <EventForm />
+          </Route>
+          <Route path='api/events/:id'>
+            <EventDetail />
           </Route>
         </Switch>
       )}
