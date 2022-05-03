@@ -13,16 +13,14 @@ function App() {
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
   let homePage;
-  if(sessionUser){
-    homePage = <Landing />
-  } else {
-    homePage = <Splash />
-  }
+  if(sessionUser){ homePage = <Landing /> }
+  else { homePage = <Splash />}
 
   return (
     <>

@@ -7,8 +7,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Group.associate = function(models) {
     Group.belongsTo(models.User, { foreignKey: 'user_id' });
-    Group.belongsToMany(models.User, { through: 'GroupMembers', foreignKey: 'group_id' });
-    Group.belongsToMany(models.Event, { through: 'GroupEvents', foreignKey: 'group_id' });
+    Group.belongsToMany(models.User, { through: 'GroupMembers', foreignKey: 'group_id', otherKey: 'user_id' });
+    Group.belongsToMany(models.Event, { through: 'GroupEvents', foreignKey: 'group_id', otherKey: 'event_id' });
   };
+
   return Group;
 };
