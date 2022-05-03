@@ -20,6 +20,7 @@ module.exports = {
       date: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: Sequelize.fn('now')
       },
       body: {
         type: Sequelize.TEXT,

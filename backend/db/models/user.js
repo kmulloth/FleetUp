@@ -49,9 +49,9 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     User.hasMany(models.Event, { foreignKey: 'user_id' });
-    User.belongsToMany(models.Event, { through: 'RSVP', foreignKey: 'user_id' });
+    User.hasMany(models.RSVP, { foreignKey: 'userId' });
     User.hasMany(models.Group, { foreignKey: 'user_id' });
-    User.belongsToMany(models.Group, { through: 'GroupMembers', foreignKey: 'user_id' });
+    User.belongsToMany(models.Group, { through: 'GroupMembers', foreignKey: 'user_id', otherKey: 'group_id' });
   };
 
   User.prototype.toSafeObject = function() { // remember, this cannot be an arrow function
