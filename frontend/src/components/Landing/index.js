@@ -30,16 +30,23 @@ function Landing () {
             </div>
             <div id='events-container'>
                 {events.map(event => {
-                    console.log(event, '---------',event.User);
+
+                    console.log(event)
+
                     return (
-                        <NavLink to={`/api/events/${event.id}`}>
-                            <div className='event-card' key={ event.id }>
-                                <div className='event-card-header'>
-                                    <h3>{event.name}</h3>
-                                    <p>by</p>
-                                    <h4>{event.User.username}</h4>
+                        <NavLink to={`/api/events/${event?.id}`} key={ event?.id }>
+                            <div className='event-card' >
+                                <div className='event-card-img'>
+                                    <img src={event?.imgUrl === null ? '/../../default.jpg' : event?.imgUrl} alt=''></img>
                                 </div>
-                                <p>{event.body}</p>
+                                <div className='event-card-text'>
+                                    <div className='event-card-header'>
+                                        <h3>{event?.name}</h3>
+                                        <p>by</p>
+                                        <h4>{event?.User?.username}</h4>
+                                    </div>
+                                    <p>{event?.body}</p>
+                                </div>
                             </div>
                         </NavLink>
                     )

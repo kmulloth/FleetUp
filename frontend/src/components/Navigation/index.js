@@ -24,7 +24,7 @@ function Navigation({ isLoaded }){
   return (
     <div id='nav'>
       <div>
-        <NavLink exact to="/" className='navlink'>Home</NavLink>
+        <NavLink to="/" exact className='navlink'>Home</NavLink>
         <NavLink to="/api/groups" className='navlink'>Groups</NavLink>
       </div>
       <div>

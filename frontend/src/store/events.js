@@ -5,13 +5,14 @@ const GET_ALL_EVENTS = 'events/GET_ALL_EVENTS';
 const ADD_EVENT = 'events/ADD_EVENT';
 const EDIT_EVENT = 'events/EDIT_EVEN';
 const DELETE_EVENT = 'events/DELETE_EVENT';
+
 const addEvent = event => {
   return {
       type: ADD_EVENT,
       payload: event
   };
 };
-const editEvent = event => {
+const editOneEvent = event => {
   return {
       type: EDIT_EVENT,
       payload: event
@@ -35,7 +36,6 @@ const getAllEvents = (events) => {
     }
 }
 export const createEvent = (event) => async (dispatch) => {
-
   const response = await csrfFetch('/api/events/new', {
       method: 'POST',
       body: JSON.stringify(event),
@@ -48,12 +48,14 @@ export const createEvent = (event) => async (dispatch) => {
 }
 
 export const getOneEvent = id => async dispatch => {
-   const response = csrfFetch(`/api/events/${id}`);
+  const response = await csrfFetch(`/api/events/${id}`);
 
-   if (response.ok) {
-    const event = response.json();
+  console.log(response)
+  if (response.ok) {
+    const event = await response.json();
     dispatch(getEvent(event));
-   }
+    return event;
+  }
 }
 export const getEvents = () => async dispatch => {
   const response = await csrfFetch(`/api/events/all`);
@@ -65,7 +67,19 @@ export const getEvents = () => async dispatch => {
   }
 };
 
-let initialState = {events: []};
+export const editEvent = (event) => async (dispatch) => {
+  const response = await csrfFetch(`/api/events/${event.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(event),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  });
+  const editedEvent = await response.json();
+  dispatch(editOneEvent(editedEvent));
+}
+
+let initialState = {events: {}};
 
 const eventReducer = (state = initialState, action) => {
     let newState;
@@ -80,7 +94,7 @@ const eventReducer = (state = initialState, action) => {
         return newState;
       case ADD_EVENT:
         newState = {...state};
-        newState.events = action.payload;
+        // newState.events = action.payload;
         return newState;
       case EDIT_EVENT:
         newState = {...state};

@@ -10,6 +10,7 @@ import Landing from "./components/Landing";
 import Splash from "./components/Splash";
 import EventForm from "./components/EventForm";
 import EventDetail from "./components/EventDetail";
+import EditEventForm from "./components/EditEventForm";
 
 function App() {
   const sessionUser = useSelector(state => state.session.user);
@@ -44,8 +45,11 @@ function App() {
           <Route path="/api/events/new">
             <EventForm />
           </Route>
-          <Route path='api/events/:id'>
+          <Route path='/api/events/:eventId' exact>
             <EventDetail />
+          </Route>
+          <Route path='/api/events/:eventId/edit'>
+            <EditEventForm />
           </Route>
         </Switch>
       )}
