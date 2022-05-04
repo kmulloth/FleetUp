@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams  } from 'react-router-dom';
 import * as eventActions from '../../store/events';
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
 import './eventDetail.css';
 
 function EventDetail(){
@@ -9,6 +10,7 @@ function EventDetail(){
     const {eventId} = useParams();
     const dispatch = useDispatch();
     const event = useSelector(state => state.events.events);
+    const user = useSelector(state => state.session.user);
 
     console.log('!!!!!', event);
 
@@ -23,9 +25,10 @@ function EventDetail(){
                     <h1>{event&&event?.name}</h1>
                     <h2>Captain: {event&&event.User?.username}</h2>
                 </div>
+
                 <div id='event-buttons'>
-                    <NavLink to={`/api/events/${eventId}/edit`}>Edit Event</NavLink>
-                    <NavLink to={`/api/events/${eventId}/delete`}>Delete Event</NavLink>
+                    {event.User?.id === user.id ? <NavLink to={`/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
+                    {event.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
                 </div>
             </div>
             <p>{event&&event?.body}</p>

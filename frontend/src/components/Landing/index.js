@@ -9,7 +9,7 @@ function Landing () {
     // const [eventArr, setEventArr] = useState([]);
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const events = Object.values(useSelector(state => state.events.events));
+    const events = Object.values(useSelector(state => state?.events?.events));
 
     // console.log(events)
     // console.log(sessionUser,);

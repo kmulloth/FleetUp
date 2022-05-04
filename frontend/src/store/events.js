@@ -18,9 +18,10 @@ const editOneEvent = event => {
       payload: event
   };
 };
-const deleteEvent = () => {
+const deleteEvent = (event) => {
   return {
       type: DELETE_EVENT,
+      payload: event
   };
 };
 const getEvent = event => {
@@ -79,6 +80,19 @@ export const editEvent = (event) => async (dispatch) => {
   dispatch(editOneEvent(editedEvent));
 }
 
+export const deleteOneEvent = id => async (dispatch) => {
+  const response = await csrfFetch(`/api/events/${id}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  });
+
+  console.log('!!!!!++++', response.json())
+
+  dispatch(deleteEvent(response));
+}
+
 let initialState = {events: {}};
 
 const eventReducer = (state = initialState, action) => {
@@ -102,7 +116,7 @@ const eventReducer = (state = initialState, action) => {
         return newState;
       case DELETE_EVENT:
         newState = {...state};
-        newState.events = null;
+        newState.events = action.payload;
         return newState;
       default:
         return state;

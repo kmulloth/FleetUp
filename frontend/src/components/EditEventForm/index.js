@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {csrfFetch} from '../../store/csrf';
 import './editEventForm.css';
 
@@ -15,9 +15,8 @@ function EditEventForm(){
 
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
-    const dispatch = useDispatch();
 
-    const {editEvent} = require("../../store/events.js");
+    const {eventId} = useParams();
 
     useEffect(() => {
         const errors = [];
@@ -39,13 +38,13 @@ function EditEventForm(){
 
         // console.log(user_id)
         const event = { user_id, name, date, body, attending: 0};
-        const updateEvent = csrfFetch(`/api/events/${event.id}`, {
+        const updateEvent = csrfFetch(`/api/events/${eventId}`, {
             method: 'PUT',
             body: JSON.stringify(event),
         })
         // const response = await updateEvent.json();
         console.log('******', event)
-        history.push(`/api/events/${event.id}`);
+        history.push(`/api/events/${eventId}`);
     }
 
     return (
