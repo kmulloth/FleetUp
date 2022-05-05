@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getEvents } from '../../store/events.js';
 import { getRsvps } from '../../store/rsvps.js';
+import { getGroups } from '../../store/groups.js';
 import ConfirmDeleteRSVPModal from '../ConfirmDeleteRSVPModal';
 import './landing.css'
 
@@ -13,6 +14,7 @@ function Landing () {
     const sessionUser = useSelector(state => state.session.user);
     const events = Object.values(useSelector(state => state?.events?.events));
     const rsvps = Object.values(useSelector(state => state?.rsvps?.rsvps));
+    const groups = Object.values(useSelector(state => state?.groups?.groups));
 
     // console.log(events)
     // console.log(sessionUser,);
@@ -25,33 +27,56 @@ function Landing () {
         dispatch(getRsvps({include: [{model: 'Event'}]}));
     }, [dispatch])
 
+    useEffect(() => {
+        dispatch(getGroups());
+    }, [dispatch])
+
     return (
         <>
         <div id='landing'>
-            <h1>Welcome {sessionUser.username}!</h1>
+            <h1>Welcome, {sessionUser.username}!</h1>
         </div>
         <div id='content'>
             <div id='user-sidebar'>
-                <div id='reservations-header'>
-                    <h2>Your Reservations</h2>
+                <div id='reservations'>
+                    <div id='reservations-header'>
+                        <h2>Your Reservations</h2>
+                    </div>
+                    <div id='reservations-body'>
+                        {rsvps.map(rsvp => {
+                            if (rsvp.userId === sessionUser.id) {
+                            return (
+                                <div className='reservation-card' key={rsvp.id}>
+                                    <div className='rsvp-card-content'>
+                                        <p>{rsvp.Event?.name}</p>
+                                        <p>{rsvp.Event?.date}</p>
+                                    </div>
+                                    <ConfirmDeleteRSVPModal rsvp={rsvp} />
+                                </div>
+                            )}})}
+                    </div>
+                    <div id='group-header'>
+                        <h2>Your Groups</h2>
+                        <NavLink to="/api/groups/new" className='navlink'>
+                            <i className="fa-solid fa-pencil" />
+                        </NavLink>
+                    </div>
+                    <div id='group-body'>
+                        {groups.map(group => {
+                            if (group.userId === sessionUser.id) {
+                            return (
+                                <div className='group-card' key={group.id}>
+                                    <p>{group.name}</p>
+                                </div>
+                            )}})}
 
-                </div>
-                <div id='reservations-body'>
-                    {rsvps.map(rsvp => {
-                        return (
-                            <div className='reservation-card' key={rsvp.id}>
-                                <p>{rsvp.Event?.name}</p>
-                                <p>{rsvp.Event?.date}</p>
-                                <ConfirmDeleteRSVPModal rsvp={rsvp} />
-                            </div>
-                        )})}
-
+                    </div>
                 </div>
             </div>
             <div>
                 <div id='events-header'>
                     <h2>Events</h2>
-                    <NavLink to='api/events/new'>Create an Event!</NavLink>
+                    <NavLink to='api/events/new'><i className='fa-solid fa-pencil' /></NavLink>
                 </div>
                 <div id='events-container'>
                     {events.map(event => {

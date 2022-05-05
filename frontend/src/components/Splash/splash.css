@@ -10,9 +10,24 @@ body{
     height: 100%;
 }
 #splash{
-    display:block;
-    position: top;
-    width: 100%;
-    height: 100%;
-    background-image: url('../../default.jpg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-image: url('../../assets/splash.jpg');
+}
+
+#spash-content{
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    margin: 0 auto;
+}
+
+#splash-content *{
+    width: 160px;
+    right: 0;
+    margin: 0;
 }

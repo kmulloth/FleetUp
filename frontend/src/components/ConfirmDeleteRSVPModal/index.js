@@ -7,10 +7,10 @@ function ConfirmDeleteRSVPModal({rsvp}) {
 
     return (
         <>
-            <button onClick={() => {
+            <i className='fa-solid fa-trash-can' onClick={() => {
                 setShowModal(true)
-                console.log('TEST DELETE BUTTON', showModal)
-                }}>Delete</button>
+                console.log('TEST DELETE i', showModal)
+                }}></i>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <ConfirmDeleteRSVP rsvp={rsvp}/>

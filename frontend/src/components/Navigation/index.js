@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getEvents } from '../../store/events.js';
+import { getGroups } from '../../store/groups.js';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import ProfileButton from './ProfileButton';
@@ -8,6 +10,10 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  const events = Object.values(useSelector(state => state?.events?.events));
+  const groups = Object.values(useSelector(state => state?.groups?.groups));
+
+  const [query, setQuery] = useState('');
 
   let sessionLinks;
   if (sessionUser) {
@@ -26,8 +32,40 @@ function Navigation({ isLoaded }){
   return (
     <div id='nav'>
       <div>
-        <NavLink to="/" exact className='navlink'>Home</NavLink>
-        <NavLink to="/api/groups" className='navlink'>Groups</NavLink>
+        <NavLink to="/" exact className='navlink'><i className="fa-solid fa-anchor" /></NavLink>
+      </div>
+      <div id='search'>
+        <input placeholder='Search' onChange={e => setQuery(e.target.value)}/>
+        {
+        events.filter(event => {
+          if (query === '') {
+            return;
+          } else if (event.name.toLowerCase().includes(query.toLowerCase())) {
+          return event
+        }}).map(event => {
+          return (
+            <div className='event-search-card' key={event.id}>
+              <NavLink to={`/events/${event.id}`} className='event-card-link'>
+                <p>{event.name} - Event</p>
+              </NavLink>
+            </div>
+          )
+        })}
+        {groups.filter(group => {
+          if (query === '') {
+            return;
+          } else if (group.title.toLowerCase().includes(query.toLowerCase())) {
+          return group
+          }}).map(group => {
+            return (
+              <div className='group-search-card' key={group.id}>
+                <NavLink to={`/groups/${group.id}`} className='group-card-link'>
+                  <p>{group.title} -Crew</p>
+                </NavLink>
+              </div>
+            )
+          })
+          }
       </div>
       <div>
         {isLoaded && sessionLinks}
