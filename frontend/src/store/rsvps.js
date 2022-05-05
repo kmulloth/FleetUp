@@ -20,10 +20,10 @@ const editOneRsvp = rsvp => {
     };
 }
 
-const deleteRsvp = (rsvp) => {
+const deleteRsvp = (id) => {
     return {
         type: DELETE_RSVP,
-        payload: rsvp
+        payload: id
     };
 }
 
@@ -71,7 +71,8 @@ export const getRsvps = () => async dispatch => {
 
     if (response.ok) {
         const rsvps = await response.json();
-        dispatch(getAllRsvps(rsvps));
+        dispatch(getAllRsvps(rsvps))
+
         return rsvps;
     }
 }
@@ -95,11 +96,12 @@ export const deleteOneRsvp = (id) => async (dispatch) => {
             'Content-Type': 'application/json'
         }
     });
-    const deletedRsvp = await response.json();
-    dispatch(deleteRsvp(deletedRsvp));
+
+    dispatch(deleteRsvp(id))
+    dispatch(getRsvps());
 }
 
-let initialState = {rsvps: {}};
+let initialState = { rsvps: {} };
 
 const rsvpReducer = (state = initialState, action) => {
     let newState;
