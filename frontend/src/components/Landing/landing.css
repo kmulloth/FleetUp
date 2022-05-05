@@ -1,6 +1,60 @@
+#content{
+    display: flex;
+    justify-content: left;
+}
+#user-sidebar{
+    margin: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.reservation-card{
+    margin: 5px;
+}
+
+.reservation-card p{
+    margin: 0px;
+}
+
 #events-header{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.event-card{
+    border: 2px solid black;
+    height: 150px;
+    display: flex;
+}
+
+.event-card-img img{
+    width: 150px;
+    height: 150px;
+    padding-right: 5px;
+}
+
+.event-card-title{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline ;
+    justify-content: left;
+    height: auto;
+}
+
+.event-card p{
+    margin: 0;
+    padding: 0;
+    margin-bottom:10px;
+
+}
+
+.event-card-header h3, .event-card-header p, .event-card-header h4{
+    margin: 0;
+    padding: 8px;
+    padding-left: 0px;
 }

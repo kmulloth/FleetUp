@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
@@ -15,8 +17,8 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login" className='navlink'>Log In</NavLink>
-        <NavLink to="/signup" className='navlink'>Sign Up</NavLink>
+        <LoginFormModal />
+        <SignupFormModal />
       </>
     );
   }
@@ -24,8 +26,8 @@ function Navigation({ isLoaded }){
   return (
     <div id='nav'>
       <div>
-        <NavLink exact to="/" className='navlink'>Home</NavLink>
-        <NavLink to="/groups" className='navlink'>Groups</NavLink>
+        <NavLink to="/" exact className='navlink'>Home</NavLink>
+        <NavLink to="/api/groups" className='navlink'>Groups</NavLink>
       </div>
       <div>
         {isLoaded && sessionLinks}

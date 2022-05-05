@@ -13,6 +13,9 @@ module.exports = {
         allowNull: false,
         references: { model: 'Users', key: 'id' },
       },
+      imgUrl: {
+        type: Sequelize.STRING,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,

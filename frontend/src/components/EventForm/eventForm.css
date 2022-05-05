@@ -1,0 +1,19 @@
+#errors{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#errors li{
+    color: red;
+    font-size: 1.2rem;
+    text-decoration: none;
+    list-style: none;
+}
+
+#eventForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
