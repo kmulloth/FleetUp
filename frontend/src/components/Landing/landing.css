@@ -1,3 +1,24 @@
+#content{
+    display: flex;
+    justify-content: left;
+}
+#user-sidebar{
+    margin: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.reservation-card{
+    margin: 5px;
+}
+
+.reservation-card p{
+    margin: 0px;
+}
+
 #events-header{
     display: flex;
     flex-direction: row;
@@ -7,9 +28,17 @@
 
 .event-card{
     border: 2px solid black;
+    height: 150px;
+    display: flex;
 }
 
-.event-card-header{
+.event-card-img img{
+    width: 150px;
+    height: 150px;
+    padding-right: 5px;
+}
+
+.event-card-title{
     display: flex;
     flex-direction: row;
     align-items: baseline ;

@@ -7,11 +7,14 @@ import eventReducer from './events';
 import * as eventActions from './events';
 import groupsReducer from './groups';
 import * as groupsActions from './groups';
+import rsvpReducer from './rsvps';
+import * as rsvpActions from './rsvps';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   events: eventReducer,
-  groups: groupsReducer
+  groups: groupsReducer,
+  rsvps: rsvpReducer
 });
 
 let enhancer;
@@ -39,6 +42,7 @@ if (process.env.NODE_ENV !== 'production') {
     window.sessionActions = sessionActions;
     window.eventActions = eventActions;
     window.groupsActions = groupsActions;
+    window.rsvpActions = rsvpActions;
   }
 
 export default configureStore;

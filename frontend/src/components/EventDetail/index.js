@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams  } from 'react-router-dom';
 import * as eventActions from '../../store/events';
 import ConfirmDeleteModal from '../ConfirmDeleteModal';
+import RSVPModal from '../RSVPModal';
 import './eventDetail.css';
 
 function EventDetail(){
@@ -29,6 +30,7 @@ function EventDetail(){
                 <div id='event-buttons'>
                     {event.User?.id === user.id ? <NavLink to={`/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
                     {event.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
+                    {event.User?.id !== user.id ? <RSVPModal /> : <></>}
                 </div>
             </div>
             <p>{event&&event?.body}</p>

@@ -10,7 +10,7 @@ function EventForm () {
     const [name, setName] = useState('');
     const [body, setBody] = useState('');
     const [date, setDate] = useState(today);
-    const [image, setImage] = useState('');
+    const [imgUrl, setImgUrl] = useState('');
     const [errors, setErrors] = useState([]);
 
     const history = useHistory();
@@ -36,8 +36,8 @@ function EventForm () {
 
         const user_id = sessionUser.id;
 
-        // console.log(user_id)
-        const event = { user_id, name, date, body, attending: 0};
+        console.log(imgUrl)
+        const event = { user_id, imgUrl, name, date, body, attending: 0};
         dispatch(createEvent(event)).then(() => {
             history.push('/')
         });
@@ -50,7 +50,7 @@ function EventForm () {
         </ul>
         <form id='eventForm' onSubmit={handleSubmit}>
             <label htmlFor='image'>ImageURL:
-                <input type='text' name='image' onChange={e => setImage(e.target.value)}/>
+                <input type='text' name='image' onChange={e => setImgUrl(e.target.value)}/>
             </label>
             <label htmlFor='title'>Event Name:
                 <input type="text" name="title" onChange={e => setName(e.target.value)}/>
