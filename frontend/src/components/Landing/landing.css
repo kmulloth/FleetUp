@@ -6,9 +6,21 @@
     margin: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
-    border: 2px solid #ccc;
+    background-color: rgb(246,247,248);
     border-radius: 10px;
     padding: 10px;
+}
+
+#reservations, #groups{
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#reservations-header h2, #group-header h2{
+    margin: 0px;
 }
 
 .reservation-card{
@@ -36,14 +48,27 @@
 }
 
 .event-card{
-    border: 2px solid black;
-    height: 150px;
+    border: 2px solid white;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    height: 100px;
     display: flex;
+    transition: 0.35s;
+    padding: 10px;
+}
+
+.event-card:hover{
+    border-left: 1px solid red;
+    border-bottom: 1px solid red;
 }
 
 .event-card-img img{
     width: 150px;
-    height: 150px;
+    height: 75px;
+    border-radius: 10px;
+    padding-left: 3px;
     padding-right: 5px;
 }
 
@@ -65,6 +90,7 @@
 .event-card-header h3, .event-card-header p, .event-card-header h4{
     margin: 0;
     padding: 8px;
+    padding-top: 0px;
     padding-left: 0px;
 }
 
