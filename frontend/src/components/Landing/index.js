@@ -99,9 +99,9 @@ function Landing () {
 
                         return (
                             <NavLink to={`/api/events/${event?.id}`} key={ event?.id }>
-                                <div className='event-card' >
+                                <div className='event-card' key={event?.id}>
                                     <div className='event-card-img'>
-                                        <img src={event?.imgUrl === null ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>
+                                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>
                                     </div>
                                     <div className='event-card-text'>
                                         <div className='event-card-header'>

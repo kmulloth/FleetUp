@@ -10,30 +10,45 @@ function EventDetail(){
 
     const {eventId} = useParams();
     const dispatch = useDispatch();
-    const event = useSelector(state => state.events.events);
+    let event = useSelector(state => state.events.events);
     const user = useSelector(state => state.session.user);
-
-    console.log('!!!!!', event);
 
     useEffect(() => {
         dispatch(eventActions.getOneEvent(eventId));
     }, [dispatch]);
 
+    const formattedDate = new Date(event?.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
+
     return (
-        <div>
+        <div id='event'>
             <div id='event-detail-header'>
                 <div id='event-titles'>
-                    <h1>{event&&event?.name}</h1>
-                    <h2>Captain: {event&&event.User?.username}</h2>
+                    <p>{formattedDate}</p>
+                    <h1>{event?.name}</h1>
+                    <h2>Captain: {event.User?.username}</h2>
                 </div>
 
                 <div id='event-buttons'>
-                    {event.User?.id === user.id ? <NavLink to={`/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
+                    {event.User?.id === user.id ? <NavLink to={ `/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
                     {event.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
                     {event.User?.id !== user.id ? <RSVPModal /> : <></>}
                 </div>
             </div>
-            <p>{event&&event?.body}</p>
+            <div id='event-detail-body'>
+                <div id='event-detail-body-left'>
+                    <div id='img-container'>
+                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt='' />
+                    </div>
+                    <h3>Details: </h3>
+                    <p>{event?.body}</p>
+                </div>
+            </div>
         </div>
     )
 }

@@ -45,12 +45,14 @@ router.post("/new", requireAuth, asyncHandler(async (req, res) => {
   }));
 
 router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
-    const { user_id, name, date, body, attending } = req.body;
+    const { user_id, imgUrl, name, date, body, attending } = req.body;
+    console.log('IMAGE URL: ', imgUrl)
     const event = await Event.findOne({
       where: {
         id: req.params.id
       }
     });
+    event.imgUrl = imgUrl;
     event.name = name;
     event.date = date;
     event.body = body;

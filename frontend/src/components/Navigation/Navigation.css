@@ -1,4 +1,5 @@
 #nav{
+    position: sticky;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -33,6 +34,10 @@
     top: 38px;
     left: 150px;
     border-bottom: 0.5px solid #bbb;
-    z-index: 1;
+    z-index: 5;
     width: 480px;
+}
+
+#search-results * {
+    background-color: white;
 }

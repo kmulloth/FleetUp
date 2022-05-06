@@ -26,3 +26,7 @@ a{
     color: #333;
     text-decoration: none;
 }
+
+h1{
+    z-index: 1;
+}
