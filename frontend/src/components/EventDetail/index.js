@@ -10,10 +10,8 @@ function EventDetail(){
 
     const {eventId} = useParams();
     const dispatch = useDispatch();
-    const event = useSelector(state => state.events.events);
+    let event = useSelector(state => state.events.events);
     const user = useSelector(state => state.session.user);
-
-    console.log('!!!!!', event);
 
     useEffect(() => {
         dispatch(eventActions.getOneEvent(eventId));
@@ -37,7 +35,7 @@ function EventDetail(){
                 </div>
 
                 <div id='event-buttons'>
-                    {event.User?.id === user.id ? <NavLink to={`/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
+                    {event.User?.id === user.id ? <NavLink to={ `/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
                     {event.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
                     {event.User?.id !== user.id ? <RSVPModal /> : <></>}
                 </div>
@@ -45,7 +43,7 @@ function EventDetail(){
             <div id='event-detail-body'>
                 <div id='event-detail-body-left'>
                     <div id='img-container'>
-                        <img src={event?.imgUrl === null ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt='' />
+                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt='' />
                     </div>
                     <h3>Details: </h3>
                     <p>{event?.body}</p>

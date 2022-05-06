@@ -88,8 +88,6 @@ export const deleteOneEvent = id => async (dispatch) => {
       }
   });
 
-  console.log('!!!!!++++', response.json())
-
   dispatch(deleteEvent(response));
 }
 
@@ -116,7 +114,7 @@ const eventReducer = (state = initialState, action) => {
         return newState;
       case DELETE_EVENT:
         newState = {...state};
-        newState.events = action.payload;
+        newState.events = getAllEvents;
         return newState;
       default:
         return state;

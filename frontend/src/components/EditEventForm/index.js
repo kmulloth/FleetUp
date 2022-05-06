@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { getOneEvent } from '../../store/events';
 import {csrfFetch} from '../../store/csrf';
 import './editEventForm.css';
 
-function EditEventForm(){
+function EditEventForm() {
+    const dispatch = useDispatch();
     let today = new Date();
 
     const [name, setName] = useState('');
@@ -43,9 +45,9 @@ function EditEventForm(){
             body: JSON.stringify(event),
         })
         // const response = await updateEvent.json();
-        console.log('******', event)
         history.push(`/api/events/${eventId}`);
     }
+
 
     return (
         <div>
