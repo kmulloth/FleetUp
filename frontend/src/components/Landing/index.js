@@ -45,7 +45,7 @@ function Landing () {
                     </div>
                     <div id='reservations-body'>
                         {rsvps.map(rsvp => {
-                            if (rsvp.userId === sessionUser.id) {
+                            if (rsvp?.userId === sessionUser.id) {
                                 const date = new Date(rsvp?.Event?.date).toLocaleTimeString('en-US', {
                                     weekday: 'long',
                                     month: 'long',
@@ -56,7 +56,7 @@ function Landing () {
                             return (
                                 <div className='reservation-card' key={rsvp.id}>
                                     <div className='rsvp-card-content'>
-                                        <p>{rsvp.Event?.name}</p>
+                                        <p>{rsvp?.Event?.name}</p>
                                         <p>{date}</p>
                                     </div>
                                     <ConfirmDeleteRSVPModal rsvp={rsvp} />
@@ -71,9 +71,9 @@ function Landing () {
                     </div>
                     <div id='group-body'>
                         {groups.map(group => {
-                            if (group.user_id === sessionUser.id) {
+                            if (group?.user_id === sessionUser.id) {
                             return (
-                                <div className='group-card' key={group.id}>
+                                <div className='group-card' key={group?.id}>
                                     <p>{group?.title}</p>
                                 </div>
                             )}})}

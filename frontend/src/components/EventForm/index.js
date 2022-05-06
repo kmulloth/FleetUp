@@ -36,7 +36,7 @@ function EventForm () {
 
         const user_id = sessionUser.id;
 
-        console.log(imgUrl)
+        console.log('IMAGE URL: ', imgUrl)
         const event = { user_id, imgUrl, name, date, body, attending: 0};
         dispatch(createEvent(event)).then(() => {
             history.push('/')
