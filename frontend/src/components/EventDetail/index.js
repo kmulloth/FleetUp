@@ -19,12 +19,21 @@ function EventDetail(){
         dispatch(eventActions.getOneEvent(eventId));
     }, [dispatch]);
 
+    const formattedDate = new Date(event?.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
+
     return (
-        <div>
+        <div id='event'>
             <div id='event-detail-header'>
                 <div id='event-titles'>
-                    <h1>{event&&event?.name}</h1>
-                    <h2>Captain: {event&&event.User?.username}</h2>
+                    <p>{formattedDate}</p>
+                    <h1>{event?.name}</h1>
+                    <h2>Captain: {event.User?.username}</h2>
                 </div>
 
                 <div id='event-buttons'>
@@ -33,7 +42,15 @@ function EventDetail(){
                     {event.User?.id !== user.id ? <RSVPModal /> : <></>}
                 </div>
             </div>
-            <p>{event&&event?.body}</p>
+            <div id='event-detail-body'>
+                <div id='event-detail-body-left'>
+                    <div id='img-container'>
+                        <img src={event?.imgUrl === null ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt='' />
+                    </div>
+                    <h3>Details: </h3>
+                    <p>{event?.body}</p>
+                </div>
+            </div>
         </div>
     )
 }

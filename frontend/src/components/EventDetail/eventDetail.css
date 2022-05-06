@@ -1,10 +1,36 @@
+#event{
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+}
+
 #event-detail-header{
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    border-bottom: 2px solid #e6e6e6;
+    width: 80%;
+    padding: 20px 0px 20px 200px;
 }
 #event-buttons{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: bottom;
+    align-items: center;
+}
+
+#event-titles *{
+    left: 0;
+    margin: 0;
+}
+
+#event-detail-body{
+    height: 100%;
+    margin: 0;
+    padding: 20px 200px 20px 200px;
+    background-color: #eee;
+}
+
+#img-container img{
+    width: 900px;
 }
