@@ -5,6 +5,7 @@ import { getEvents } from '../../store/events.js';
 import { getRsvps } from '../../store/rsvps.js';
 import { getGroups } from '../../store/groups.js';
 import ConfirmDeleteRSVPModal from '../ConfirmDeleteRSVPModal';
+import GroupFormModal from '../GroupFormModal/index.js';
 import './landing.css'
 
 function Landing () {
@@ -57,9 +58,7 @@ function Landing () {
                     </div>
                     <div id='group-header'>
                         <h2>Your Groups</h2>
-                        <NavLink to="/api/groups/new" className='navlink'>
-                            <i className="fa-solid fa-pencil" />
-                        </NavLink>
+                        <GroupFormModal />
                     </div>
                     <div id='group-body'>
                         {groups.map(group => {
