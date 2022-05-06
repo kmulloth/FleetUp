@@ -44,7 +44,7 @@ function EventForm () {
     }
 
     return (
-    <div>
+    <div id='event-form-card'>
         <ul id='errors'>
             {errors.map(error => <li key={error}>{error}</li>)}
         </ul>

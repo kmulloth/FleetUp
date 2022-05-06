@@ -89,7 +89,7 @@ function Landing () {
                 <div id='events-container'>
                     {events.map(event => {
 
-                        const date = new Date(event.date).toLocaleTimeString('en-US', {
+                        const date = new Date(event?.date).toLocaleTimeString('en-US', {
                             month: 'long',
                             day: 'numeric',
                             year: 'numeric',

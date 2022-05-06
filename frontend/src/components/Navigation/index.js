@@ -36,36 +36,38 @@ function Navigation({ isLoaded }){
       </div>
       <div id='search'>
         <input placeholder='Search' onChange={e => setQuery(e.target.value)}/>
-        {
-        events.filter(event => {
-          if (query === '') {
-            return;
-          } else if (event.name.toLowerCase().includes(query.toLowerCase())) {
-          return event
-        }}).map(event => {
-          return (
-            <div className='event-search-card' key={event.id}>
-              <NavLink to={`/events/${event.id}`} className='event-card-link'>
-                <p>{event.name} - Event</p>
-              </NavLink>
-            </div>
-          )
-        })}
-        {groups.filter(group => {
-          if (query === '') {
-            return;
-          } else if (group.title.toLowerCase().includes(query.toLowerCase())) {
-          return group
-          }}).map(group => {
+        <div id='search-results'>
+          {
+          events.filter(event => {
+            if (query === '') {
+              return;
+            } else if (event?.name?.toLowerCase().includes(query?.toLowerCase())) {
+            return event
+          }}).map(event => {
             return (
-              <div className='group-search-card' key={group.id}>
-                <NavLink to={`/groups/${group.id}`} className='group-card-link'>
-                  <p>{group.title} -Crew</p>
+              <div className='event-search-card' key={event.id} >
+                <NavLink to={`api/events/${event.id}`} className='event-card-link'>
+                  <p>{event.name} - Event</p>
                 </NavLink>
               </div>
             )
-          })
-          }
+          })}
+          {groups.filter(group => {
+            if (query === '') {
+              return;
+            } else if (group?.title?.toLowerCase().includes(query?.toLowerCase())) {
+            return group
+            }}).map(group => {
+              return (
+                <div className='group-search-card' key={group.id} >
+                  <NavLink to={`api/groups/${group.id}`} className='group-card-link'>
+                    <p>{group.title} -Crew</p>
+                  </NavLink>
+                </div>
+              )
+            })
+            }
+        </div>
       </div>
       <div>
         {isLoaded && sessionLinks}

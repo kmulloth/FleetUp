@@ -4,13 +4,18 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 0.5px solid #bbb;
+    height: 45px;
 }
 
 .navlink{
     margin: 0px 50px 0px 50px;
 }
-
+#search{
+    position: absolute;
+    left: 135px;
+}
 #search input{
+    position: fixed;
     width: 500px;
     height: 30px;
     border: none;
@@ -19,4 +24,15 @@
     border-left: 3px solid red;
     margin: 5px;
     margin-bottom: 7px;
+    top: 0;
+}
+
+#search-results {
+    position: fixed;
+    background-color: white;
+    top: 38px;
+    left: 150px;
+    border-bottom: 0.5px solid #bbb;
+    z-index: 1;
+    width: 480px;
 }
