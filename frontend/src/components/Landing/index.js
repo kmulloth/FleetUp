@@ -5,6 +5,7 @@ import { getEvents } from '../../store/events.js';
 import { getRsvps } from '../../store/rsvps.js';
 import { getGroups } from '../../store/groups.js';
 import ConfirmDeleteRSVPModal from '../ConfirmDeleteRSVPModal';
+import GroupFormModal from '../GroupFormModal/index.js';
 import './landing.css'
 
 function Landing () {
@@ -45,11 +46,18 @@ function Landing () {
                     <div id='reservations-body'>
                         {rsvps.map(rsvp => {
                             if (rsvp.userId === sessionUser.id) {
+                                const date = new Date(rsvp?.Event?.date).toLocaleTimeString('en-US', {
+                                    weekday: 'long',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: 'numeric',
+                                    minute: 'numeric',
+                                });
                             return (
                                 <div className='reservation-card' key={rsvp.id}>
                                     <div className='rsvp-card-content'>
                                         <p>{rsvp.Event?.name}</p>
-                                        <p>{rsvp.Event?.date}</p>
+                                        <p>{date}</p>
                                     </div>
                                     <ConfirmDeleteRSVPModal rsvp={rsvp} />
                                 </div>
@@ -57,16 +65,14 @@ function Landing () {
                     </div>
                     <div id='group-header'>
                         <h2>Your Groups</h2>
-                        <NavLink to="/api/groups/new" className='navlink'>
-                            <i className="fa-solid fa-pencil" />
-                        </NavLink>
+                        <GroupFormModal />
                     </div>
                     <div id='group-body'>
                         {groups.map(group => {
-                            if (group.userId === sessionUser.id) {
+                            if (group.user_id === sessionUser.id) {
                             return (
                                 <div className='group-card' key={group.id}>
-                                    <p>{group.name}</p>
+                                    <p>{group?.title}</p>
                                 </div>
                             )}})}
 
@@ -81,7 +87,13 @@ function Landing () {
                 <div id='events-container'>
                     {events.map(event => {
 
-                        console.log(event)
+                        const date = new Date(event.date).toLocaleTimeString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                        });
 
                         return (
                             <NavLink to={`/api/events/${event?.id}`} key={ event?.id }>
@@ -91,7 +103,7 @@ function Landing () {
                                     </div>
                                     <div className='event-card-text'>
                                         <div className='event-card-header'>
-                                            <p>{event?.date}</p>
+                                            <p>{date}</p>
                                             <div className='event-card-title'>
                                                 <h3>{event?.name}</h3>
                                                 <p>by</p>

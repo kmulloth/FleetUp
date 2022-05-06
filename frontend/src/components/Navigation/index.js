@@ -32,7 +32,7 @@ function Navigation({ isLoaded }){
   return (
     <div id='nav'>
       <div>
-        <NavLink to="/" exact className='navlink'><i className="fa-solid fa-anchor" /></NavLink>
+        <NavLink to="/" exact className='navlink'><i className="fa-solid fa-anchor fa-xl" /></NavLink>
       </div>
       <div id='search'>
         <input placeholder='Search' onChange={e => setQuery(e.target.value)}/>

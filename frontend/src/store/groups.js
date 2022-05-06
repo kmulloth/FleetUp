@@ -6,17 +6,27 @@ const ADD_GROUP = 'groups/ADD_GROUP';
 const EDIT_GROUP = 'groups/EDIT_GROUP';
 const DELETE_GROUP = 'groups/DELETE_GROUP';
 
-export const getGroup = group => {
+const getGroup = group => {
     return {
         type: GET_GROUP,
         payload: group
     }
 }
 
-export const getAllGroups = (groups) => {
+const getAllGroups = (groups) => {
     return {
         type: GET_ALL_GROUPS,
         payload: groups
+    }
+}
+
+const addGroup = group => {
+    return {
+        type: ADD_GROUP,
+        payload: group,
+        headers: {
+            'Content-Type': 'application/json'
+        }
     }
 }
 
@@ -37,6 +47,18 @@ export const getGroups = () => async dispatch => {
         dispatch(getAllGroups(groups));
         return groups;
     }
+}
+
+export const createGroup = (group) => async (dispatch) => {
+    const response = await csrfFetch('/api/groups/new', {
+        method: 'POST',
+        body: JSON.stringify(group),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const newGroup = await response.json();
+    dispatch(addGroup(newGroup));
 }
 
 let initialState = {groups: []};

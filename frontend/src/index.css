@@ -5,14 +5,24 @@ body{
     line-height: 1.5;
     color: #333;
     background-color: #fff;
-    margin: 20px 50px auto;
+    margin: 0
 }
 
 #root{
-    width: 96%
+    width: 100%
 }
 
 #nav ~ *{
     margin-top: 40px;
     margin-left: 120px;
+}
+
+button{
+    background-color: none;
+    border: none;
+}
+
+a{
+    color: #333;
+    text-decoration: none;
 }
