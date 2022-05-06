@@ -7,8 +7,8 @@ import './groups.css';
 function Group() {
 
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
-    const groups = useSelector(state => state.groups.groups);
+    const sessionUser = useSelector(state => state.session?.user);
+    const groups = useSelector(state => state.groups?.groups);
 
     useEffect(() => {
         dispatch(getGroups());

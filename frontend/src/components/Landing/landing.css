@@ -12,11 +12,18 @@
 }
 
 .reservation-card{
+    display: flex;
     margin: 5px;
 }
 
 .reservation-card p{
     margin: 0px;
+}
+
+#group-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #events-header{
