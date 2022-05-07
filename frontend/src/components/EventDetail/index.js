@@ -6,15 +6,16 @@ import ConfirmDeleteModal from '../ConfirmDeleteModal';
 import RSVPModal from '../RSVPModal';
 import './eventDetail.css';
 
-function EventDetail(){
+function EventDetail(props){
 
     const {eventId} = useParams();
     const dispatch = useDispatch();
-    let event = useSelector(state => state.events.events);
+    console.log("AAA", props)
+    let event = useSelector(state => state.events[eventId])
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
-        dispatch(eventActions.getOneEvent(eventId));
+        dispatch(eventActions.getEvents());
     }, [dispatch]);
 
     const formattedDate = new Date(event?.date).toLocaleDateString('en-US', {
@@ -31,13 +32,13 @@ function EventDetail(){
                 <div id='event-titles'>
                     <p>{formattedDate}</p>
                     <h1>{event?.name}</h1>
-                    <h2>Captain: {event.User?.username}</h2>
+                    <h2>Captain: {event?.User?.username}</h2>
                 </div>
 
                 <div id='event-buttons'>
-                    {event.User?.id === user.id ? <NavLink to={ `/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
-                    {event.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
-                    {event.User?.id !== user.id ? <RSVPModal /> : <></>}
+                    {event?.User?.id === user.id ? <NavLink to={ `/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
+                    {event?.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
+                    {event?.User?.id !== user.id ? <RSVPModal /> : <></>}
                 </div>
             </div>
             <div id='event-detail-body'>

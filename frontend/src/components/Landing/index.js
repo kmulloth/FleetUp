@@ -13,9 +13,9 @@ function Landing () {
     // const [eventArr, setEventArr] = useState([]);
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const events = Object.values(useSelector(state => state?.events?.events));
+    const events = Object.values(useSelector(state => state?.events));
     const rsvps = Object.values(useSelector(state => state?.rsvps?.rsvps));
-    const groups = Object.values(useSelector(state => state?.groups?.groups));
+    const groups = useSelector(state => state?.groups?.groups);
 
     // console.log(events)
     // console.log(sessionUser,);
@@ -98,7 +98,7 @@ function Landing () {
                         });
 
                         return (
-                            <NavLink to={`/api/events/${event?.id}`} key={ event?.id }>
+                            <NavLink event={event} to={`/api/events/${event?.id}`} key={ event?.id }>
                                 <div className='event-card' key={event?.id}>
                                     <div className='event-card-img'>
                                         <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>

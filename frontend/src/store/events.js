@@ -1,6 +1,5 @@
 import  { csrfFetch } from './csrf';
 
-const GET_EVENT = '/events/GET_EVENT';
 const GET_ALL_EVENTS = 'events/GET_ALL_EVENTS';
 const ADD_EVENT = 'events/ADD_EVENT';
 const EDIT_EVENT = 'events/EDIT_EVEN';
@@ -18,19 +17,15 @@ const editOneEvent = event => {
       payload: event
   };
 };
-const deleteEvent = (event) => {
+const deleteEvent = (id) => {
   return {
       type: DELETE_EVENT,
-      payload: event
+      payload: id
   };
 };
-const getEvent = event => {
-    return {
-        type: GET_EVENT,
-        payload: event
-    }
-};
 const getAllEvents = (events) => {
+
+
     return {
         type: GET_ALL_EVENTS,
         payload: events
@@ -48,16 +43,6 @@ export const createEvent = (event) => async (dispatch) => {
   dispatch(addEvent(newEvent));
 }
 
-export const getOneEvent = id => async dispatch => {
-  const response = await csrfFetch(`/api/events/${id}`);
-
-  console.log(response)
-  if (response.ok) {
-    const event = await response.json();
-    dispatch(getEvent(event));
-    return event;
-  }
-}
 export const getEvents = () => async dispatch => {
   const response = await csrfFetch(`/api/events/all`);
 
@@ -69,7 +54,8 @@ export const getEvents = () => async dispatch => {
 };
 
 export const editEvent = (event) => async (dispatch) => {
-  const response = await csrfFetch(`/api/events/${event.id}`, {
+  console.log(event)
+  const response = await csrfFetch(`/api/events/${event?.id}`, {
       method: 'PUT',
       body: JSON.stringify(event),
       headers: {
@@ -83,42 +69,66 @@ export const editEvent = (event) => async (dispatch) => {
 export const deleteOneEvent = id => async (dispatch) => {
   const response = await csrfFetch(`/api/events/${id}`, {
       method: 'DELETE',
+      body: JSON.stringify({id}),
       headers: {
           'Content-Type': 'application/json'
       }
   });
 
-  dispatch(deleteEvent(response));
+    dispatch(deleteEvent(id));
+
 }
 
-let initialState = {events: {}};
+const initialState = {
+  list: []
+};
 
 const eventReducer = (state = initialState, action) => {
-    let newState;
     switch (action.type) {
-      case GET_EVENT:
-        newState = {...state};
-        newState.events = action.payload;
-        return newState;
-      case GET_ALL_EVENTS:
-        newState = {...state};
-        newState.events = action.payload;
-        return newState;
-      case ADD_EVENT:
-        newState = {...state};
-        // newState.events = action.payload;
-        return newState;
-      case EDIT_EVENT:
-        newState = {...state};
-        newState.events = action.payload;
-        return newState;
-      case DELETE_EVENT:
-        newState = {...state};
-        newState.events = getAllEvents;
-        return newState;
-      default:
-        return state;
+        case GET_ALL_EVENTS:
+          const allEvents = {}
+            action.payload.forEach((event) => {
+                if (event.id) allEvents[event.id] = event
+            })
+            return {
+              ...allEvents,
+              ...state
+            }
+        case EDIT_EVENT:
+          if (!state[action.payload.id]){
+            const newState = {
+              ...state,
+              [action.payload.event.id]: action.payload
+            }
+            const eventList = newState.list.map(id => newState[id]);
+            eventList.push(action.payload)
+            return newState
+          }
+        case ADD_EVENT:
+            if (!state[action.payload.id]){
+              const newState = {
+                ...state,
+                [action.payload.id]: action.payload
+              }
+              const eventList = newState.list.map(id => newState[id]);
+              eventList.push(action.payload)
+              return newState
+            } else {
+            return {
+              ...state,
+              [action.payload.id]: {
+                ...state[action.payload.id],
+                ...action.payload
+              }
+            }
+          }
+        case DELETE_EVENT:
+          delete state.events[action.payload]
+          return state
+
+        default:
+            return state;
     }
-  };
+};
 
 export default eventReducer;

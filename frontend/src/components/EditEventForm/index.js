@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { getOneEvent } from '../../store/events';
+import { getEvents, editEvent } from '../../store/events';
 import {csrfFetch} from '../../store/csrf';
 import './editEventForm.css';
 
@@ -39,13 +39,15 @@ function EditEventForm() {
         const user_id = sessionUser.id;
 
         // console.log(user_id)
-        const event = { user_id, imgUrl, name, date, body, attending: 0};
-        const updateEvent = csrfFetch(`/api/events/${eventId}`, {
-            method: 'PUT',
-            body: JSON.stringify(event),
-        })
-        // const response = await updateEvent.json();
-        history.push(`/api/events/${eventId}`);
+        const event = {id: eventId, user_id, imgUrl, name, date, body, attending: 0};
+        // const updateEvent = csrfFetch(`/api/events/${eventId}`, {
+        //     method: 'PUT',
+        //     body: JSON.stringify(event),
+        // })
+
+        dispatch(editEvent(event)).then(()=>
+            history.push(`/api/events/${eventId}`)
+        )
     }
 
 

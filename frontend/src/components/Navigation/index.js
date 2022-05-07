@@ -10,7 +10,7 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-  const events = Object.values(useSelector(state => state?.events?.events));
+  const events = Object.values(useSelector(state => state?.events));
   const groups = Object.values(useSelector(state => state?.groups?.groups));
 
   const [query, setQuery] = useState('');
