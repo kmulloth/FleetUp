@@ -41,6 +41,7 @@ export const createEvent = (event) => async (dispatch) => {
   });
   const newEvent = await response.json();
   dispatch(addEvent(newEvent));
+  dispatch(getEvents())
 }
 
 export const getEvents = () => async dispatch => {
@@ -85,33 +86,31 @@ const initialState = {
 const eventReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_EVENTS:
+          console.log('SOME TEXT', action.payload)
           const allEvents = {}
             action.payload.forEach((event) => {
                 if (event.id) allEvents[event.id] = event
             })
-            return {
-              ...allEvents,
-              ...state
-            }
+            return { ...allEvents }
         case EDIT_EVENT:
-          if (!state[action.payload.id]){
-            const newState = {
+            const newEditState = {
               ...state,
               [action.payload.event.id]: action.payload.event
             }
             // const eventList = newState.map(id => newState[id]);
             // eventList.push(action.payload)
-            return newState
-          }
+            return newEditState
+
         case ADD_EVENT:
-            const newState = {
+
+            const newAddState = {
               ...state,
               [action.payload.event.id]: action.payload.event
             }
             // newState[action.payload.event.id]= action.payload
             // const eventList = newState.map(id => newState[id]);
             // eventList.push(action.payload)
-            return newState
+            return newAddState
         case DELETE_EVENT:
           const newDeleteState = {...state}
           delete newDeleteState[action.payload]
