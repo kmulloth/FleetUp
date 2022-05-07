@@ -80,7 +80,6 @@ export const deleteOneEvent = id => async (dispatch) => {
 }
 
 const initialState = {
-  list: []
 };
 
 const eventReducer = (state = initialState, action) => {
@@ -98,33 +97,25 @@ const eventReducer = (state = initialState, action) => {
           if (!state[action.payload.id]){
             const newState = {
               ...state,
-              [action.payload.event.id]: action.payload
+              [action.payload.event.id]: action.payload.event
             }
-            const eventList = newState.list.map(id => newState[id]);
-            eventList.push(action.payload)
+            // const eventList = newState.map(id => newState[id]);
+            // eventList.push(action.payload)
             return newState
           }
         case ADD_EVENT:
-            if (!state[action.payload.id]){
-              const newState = {
-                ...state,
-                [action.payload.id]: action.payload
-              }
-              const eventList = newState.list.map(id => newState[id]);
-              eventList.push(action.payload)
-              return newState
-            } else {
-            return {
+            const newState = {
               ...state,
-              [action.payload.id]: {
-                ...state[action.payload.id],
-                ...action.payload
-              }
+              [action.payload.event.id]: action.payload.event
             }
-          }
+            // newState[action.payload.event.id]= action.payload
+            // const eventList = newState.map(id => newState[id]);
+            // eventList.push(action.payload)
+            return newState
         case DELETE_EVENT:
-          delete state.events[action.payload]
-          return state
+          const newDeleteState = {...state}
+          delete newDeleteState[action.payload]
+          return newDeleteState
 
         default:
             return state;

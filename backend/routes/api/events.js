@@ -50,7 +50,8 @@ router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
     const event = await Event.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: User
     });
     event.imgUrl = imgUrl;
     event.name = name;
