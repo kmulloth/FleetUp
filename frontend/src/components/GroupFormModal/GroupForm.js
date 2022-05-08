@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as sessionActions from "../../store/groups";
+import * as groupActions from "../../store/groups";
 import './groupForm.css';
 
 function GroupForm() {
@@ -18,7 +18,7 @@ function GroupForm() {
 
         const group = { user_id, title, description };
 
-        dispatch(sessionActions.createGroup(group)).then(() => {
+        dispatch(groupActions.createGroup(group)).then(() => {
             history.push("/");
         });
     }

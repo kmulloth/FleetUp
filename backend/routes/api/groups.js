@@ -12,4 +12,18 @@ router.get('/all', asyncHandler(async (req, res) => {
   return res.json(events);
 }));
 
+router.post("/new", requireAuth, asyncHandler(async (req, res) => {
+  const { user_id, title, description } = req.body;
+
+  const group = await Group.create({
+    user_id,
+    title,
+    description,
+  });
+
+  await group.save();
+  return res.json({ group });
+}));
+
+
 module.exports = router;

@@ -64,7 +64,7 @@ function Landing () {
                             )}})}
                     </div>
                 </div>
-                <div id='groups'>
+                {/* <div id='groups'>
                     <div id='group-header'>
                         <h2>Your Groups</h2>
                         <GroupFormModal />
@@ -79,7 +79,7 @@ function Landing () {
                             )}})}
 
                     </div>
-                </div>
+                </div> */}
             </div>
             <div>
                 <div id='events-header'>
