@@ -5,7 +5,7 @@ import { getEvents, editEvent } from '../../store/events';
 import {csrfFetch} from '../../store/csrf';
 import './editEventForm.css';
 
-function EditEventForm() {
+function EditEventForm(state) {
     const dispatch = useDispatch();
     let today = new Date();
 
@@ -18,7 +18,10 @@ function EditEventForm() {
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
 
+
     const {eventId} = useParams();
+    const event = useSelector(state => state.events[eventId])
+    console.log('EVENT: ',event)
 
     useEffect(() => {
         const errors = [];
@@ -39,13 +42,13 @@ function EditEventForm() {
         const user_id = sessionUser.id;
 
         // console.log(user_id)
-        const event = {id: eventId, user_id, imgUrl, name, date, body, attending: 0};
+        const eventData = {id: eventId, user_id, imgUrl, name, date, body, attending: 0};
         // const updateEvent = csrfFetch(`/api/events/${eventId}`, {
         //     method: 'PUT',
         //     body: JSON.stringify(event),
         // })
 
-        dispatch(editEvent(event)).then(()=>
+        dispatch(editEvent(eventData)).then(()=>
             history.push(`/api/events/${eventId}`)
         )
     }
@@ -58,16 +61,16 @@ function EditEventForm() {
         </ul>
         <form id='eventForm' onSubmit={handleSubmit}>
             <label htmlFor='image'>ImageURL:
-                <input type='text' name='image' onChange={e => setImgUrl(e.target.value)}/>
+                <input type='text' name='image' placeholder={event?.imgUrl} onChange={e => setImgUrl(e.target.value)}/>
             </label>
             <label htmlFor='title'>Event Name:
-                <input type="text" name="title" onChange={e => setName(e.target.value)}/>
+                <input type="text" name="title" placeholder={event?.name} onChange={e => setName(e.target.value)}/>
             </label>
             <label htmlFor='date'>Date:
                 <input type="date" name="date" onChange={e => setDate(e.target.value)}/>
             </label>
             <label htmlFor='body'>Body:
-                <textarea name="body" onChange={e => setBody(e.target.value)}/>
+                <textarea name="body" placeholder={event?.body} onChange={e => setBody(e.target.value)}/>
             </label>
             <button type='submit' disabled={errors.length === 0 ? false : true}>Submit</button>
         </form>

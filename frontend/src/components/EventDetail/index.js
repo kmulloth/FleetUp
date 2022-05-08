@@ -25,7 +25,10 @@ function EventDetail(props){
         year: 'numeric'
     });
 
-
+    const location = {
+        pathname: `/api/events/${eventId}/edit`,
+        state: {events: event}
+    }
     return (
         <div id='event'>
             <div id='event-detail-header'>
@@ -36,7 +39,7 @@ function EventDetail(props){
                 </div>
 
                 <div id='event-buttons'>
-                    {event?.User?.id === user.id ? <NavLink to={ `/api/events/${eventId}/edit`} >Edit Event</NavLink> : <></>}
+                    {event?.User?.id === user.id ? <NavLink to={ location } >Edit Event</NavLink> : <></>}
                     {event?.User?.id === user.id ? <ConfirmDeleteModal /> : <></>}
                     {event?.User?.id !== user.id ? <RSVPModal /> : <></>}
                 </div>
