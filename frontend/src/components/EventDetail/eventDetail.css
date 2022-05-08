@@ -33,4 +33,5 @@
 
 #img-container img{
     width: 900px;
+    border-radius: 10px;
 }
