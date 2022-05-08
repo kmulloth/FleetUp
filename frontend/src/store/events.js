@@ -41,6 +41,7 @@ export const createEvent = (event) => async (dispatch) => {
   });
   const newEvent = await response.json();
   dispatch(addEvent(newEvent));
+  dispatch(getEvents())
 }
 
 export const getEvents = () => async dispatch => {
@@ -80,51 +81,40 @@ export const deleteOneEvent = id => async (dispatch) => {
 }
 
 const initialState = {
-  list: []
 };
 
 const eventReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_EVENTS:
+          console.log('SOME TEXT', action.payload)
           const allEvents = {}
             action.payload.forEach((event) => {
                 if (event.id) allEvents[event.id] = event
             })
-            return {
-              ...allEvents,
-              ...state
-            }
+            return { ...allEvents }
         case EDIT_EVENT:
-          if (!state[action.payload.id]){
-            const newState = {
+            const newEditState = {
               ...state,
-              [action.payload.event.id]: action.payload
+              [action.payload.event.id]: action.payload.event
             }
-            const eventList = newState.list.map(id => newState[id]);
-            eventList.push(action.payload)
-            return newState
-          }
+            // const eventList = newState.map(id => newState[id]);
+            // eventList.push(action.payload)
+            return newEditState
+
         case ADD_EVENT:
-            if (!state[action.payload.id]){
-              const newState = {
-                ...state,
-                [action.payload.id]: action.payload
-              }
-              const eventList = newState.list.map(id => newState[id]);
-              eventList.push(action.payload)
-              return newState
-            } else {
-            return {
+
+            const newAddState = {
               ...state,
-              [action.payload.id]: {
-                ...state[action.payload.id],
-                ...action.payload
-              }
+              [action.payload.event.id]: action.payload.event
             }
-          }
+            // newState[action.payload.event.id]= action.payload
+            // const eventList = newState.map(id => newState[id]);
+            // eventList.push(action.payload)
+            return newAddState
         case DELETE_EVENT:
-          delete state.events[action.payload]
-          return state
+          const newDeleteState = {...state}
+          delete newDeleteState[action.payload]
+          return newDeleteState
 
         default:
             return state;

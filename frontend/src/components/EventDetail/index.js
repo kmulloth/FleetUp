@@ -10,7 +10,7 @@ function EventDetail(props){
 
     const {eventId} = useParams();
     const dispatch = useDispatch();
-    console.log("AAA", props)
+    // console.log("AAA", props)
     let event = useSelector(state => state.events[eventId])
     const user = useSelector(state => state.session.user);
 
