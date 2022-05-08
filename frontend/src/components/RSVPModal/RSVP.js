@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import * as rsvpActions from "../../store/rsvps";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory, useParams} from "react-router-dom";
+import './RSVP.css';
 
 function RSVPform() {
 

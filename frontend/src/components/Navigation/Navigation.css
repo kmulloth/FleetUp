@@ -42,15 +42,15 @@
     background-color: white;
 }
 .profile-dropdown{
-    position: absolute;
-    top: 32px;
+    position: relative;
+    top: 5px;
     right: 0;
     background-color: white;
     border-bottom: 0.5px solid #bbb;
     border-left: 0.5px solid #bbb;
     text-decoration: none;
     list-style: none;
-    padding:0px 25px 10px 30px; ;
+    padding:10px 25px 10px 30px; ;
 }
 
 .profile-dropdown li{
