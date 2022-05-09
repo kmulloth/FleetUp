@@ -1,5 +1,5 @@
 # FleetUp 
-## [Find your crew && find adventure !](https://km-meetup-clone.herokuapp.com/)
+## [Find your crew && find adventure !](https://km-react-app.herokuapp.com/)
 
 *A Meetup Clone*
 FleetUp Allows users to organize and register for events
