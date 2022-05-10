@@ -54,6 +54,9 @@ function App() {
           <li>
             <a href='https://github.com/kmulloth'><i className='fa-brands fa-github'></i></a>
           </li>
+          <li>
+            <a href='https://github.com/kmulloth'><i className='fa-brands fa-linkedin'></i></a>
+          </li>
         </ul>
       </div>
     </>

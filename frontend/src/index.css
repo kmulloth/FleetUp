@@ -9,7 +9,13 @@ body{
 }
 
 #root{
-    width: 100%
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #nav ~ *{
@@ -29,4 +35,22 @@ a{
 
 h1{
     z-index: 1;
+}
+
+#footer{
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    border-top: 2px solid #e6e6e6;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 1;
+}
+#footer ul{
+    margin: 0 25% 0 25%;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
 }
