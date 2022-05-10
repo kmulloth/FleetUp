@@ -5,6 +5,8 @@ import { getEvents } from '../../store/events.js';
 import { getRsvps } from '../../store/rsvps.js';
 import { getGroups } from '../../store/groups.js';
 import ConfirmDeleteRSVPModal from '../ConfirmDeleteRSVPModal';
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
+import RSVPModal from '../RSVPModal';
 import GroupFormModal from '../GroupFormModal/index.js';
 import './landing.css'
 
@@ -17,8 +19,40 @@ function Landing () {
     const rsvps = Object.values(useSelector(state => state?.rsvps?.rsvps));
     const groups = useSelector(state => state?.groups?.groups);
 
-    // console.log(events)
-    // console.log(sessionUser,);
+    const [showDetail, setShowDetail] = useState(false);
+    const [eventDetailId, setEventDetailId] = useState(1);
+    let event = events[eventDetailId];
+
+
+    const formattedDate = new Date(event?.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
+    const location = {
+        pathname: `/api/events/${event?.id}/edit`,
+        state: {events: event}
+    }
+
+    const openDetail = (eventId) => {
+        setEventDetailId(eventId - 1);
+        if (showDetail) setShowDetail(false);
+        setShowDetail(true);
+    }
+
+    useEffect(() => {
+        if (!showDetail) return;
+
+        const closeDetail = () => {
+            setShowDetail(false);
+        }
+
+        document.addEventListener('click', closeDetail);
+
+        return () => document.removeEventListener("click", closeDetail);
+      }, [showDetail]);
 
     useEffect(() => {
         dispatch(getEvents({include: [{model: 'User'}]}));
@@ -38,6 +72,79 @@ function Landing () {
             <h1>Welcome, {sessionUser.username}!</h1>
         </div>
         <div id='content'>
+            <div id='events'>
+                <div id='events-header'>
+                    <h2>Events</h2>
+                    <NavLink to='api/events/new'><i className='fa-solid fa-pencil' /></NavLink>
+                </div>
+                <div id='events-container'>
+                    {events.map(event => {
+
+                        const date = new Date(event?.date).toLocaleTimeString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                        });
+
+                        const formattedDate = new Date(event?.date).toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric'
+                        });
+
+                        const location = {
+                            pathname: `/api/events/${event.id}/edit`,
+                            state: {events: event}
+                        }
+
+                        return (
+                            <div className={`event ${event.id}`}>
+                                <div className='event-card' key={event?.id} onClick={e => openDetail(event?.id)}>
+                                    <div className='event-card-img'>
+                                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>
+                                    </div>
+                                    <div className='event-card-text'>
+                                        <div className='event-card-header'>
+                                            <p>{date}</p>
+                                            <div className='event-card-title'>
+                                                <h3>{event?.name}</h3>
+                                                <p>by</p>
+                                                <h4>{event?.User?.username}</h4>
+                                            </div>
+                                        </div>
+                                        <p>{event?.body}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+            {showDetail && (
+                <div className='event-detail-display'>
+                    <div className='event-detail-display-img'>
+                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt='' />
+                    </div>
+                    <div id='event-detail-display-header'>
+                        <div id='event-titles'>
+                            <p>{formattedDate}</p>
+                            <h1>{event?.name}</h1>
+                            <h2>Captain: {event?.User?.username}</h2>
+                        </div>
+                        <div id='event-buttons'>
+                            {event?.User?.id === sessionUser.id ? <NavLink to={ location } >Edit Event</NavLink> : <></>}
+                            {event?.User?.id === sessionUser.id ? <ConfirmDeleteModal /> : <></>}
+                            {event?.User?.id !== sessionUser.id ? <RSVPModal /> : <></>}
+                        </div>
+                    </div>
+                    <div id='event-detail-display-body'>
+                        <p>{event?.body}</p>
+                    </div>
+                </div>
+            )}
             <div id='user-sidebar'>
                 <div id='reservations'>
                     <div id='reservations-header'>
@@ -80,45 +187,6 @@ function Landing () {
 
                     </div>
                 </div> */}
-            </div>
-            <div>
-                <div id='events-header'>
-                    <h2>Events</h2>
-                    <NavLink to='api/events/new'><i className='fa-solid fa-pencil' /></NavLink>
-                </div>
-                <div id='events-container'>
-                    {events.map(event => {
-                        console.log('USER: ', event?.User)
-                        const date = new Date(event?.date).toLocaleTimeString('en-US', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                        });
-
-                        return (
-                            <NavLink event={event} to={`/api/events/${event?.id}`} key={ event?.id }>
-                                <div className='event-card' key={event?.id}>
-                                    <div className='event-card-img'>
-                                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>
-                                    </div>
-                                    <div className='event-card-text'>
-                                        <div className='event-card-header'>
-                                            <p>{date}</p>
-                                            <div className='event-card-title'>
-                                                <h3>{event?.name}</h3>
-                                                <p>by</p>
-                                                <h4>{event?.User?.username}</h4>
-                                            </div>
-                                        </div>
-                                        <p>{event?.body}</p>
-                                    </div>
-                                </div>
-                            </NavLink>
-                        )
-                    })}
-                </div>
             </div>
         </div>
         </>
