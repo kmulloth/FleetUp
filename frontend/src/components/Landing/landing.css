@@ -1,14 +1,25 @@
 #content{
+    margin: 0;
+    height: 100%;
+    padding: 100px;
+    padding-top: 20px;
     display: flex;
     justify-content: left;
+    background-color: #eee;
+}
+
+#landing{
+    margin: 0;
+    padding-left: 120px;
+    border-bottom: 2px solid #e6e6e6;
 }
 #user-sidebar{
-    margin: 20px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin: 0px;
+    right: 100px;
     background-color: rgb(246,247,248);
     border-radius: 10px;
     padding: 10px;
+    min-height: 600px;
 }
 
 #reservations, #groups{
@@ -17,6 +28,7 @@
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 15px;
+    width: 200px;
 }
 
 #reservations-header h2, #group-header h2{
@@ -39,7 +51,13 @@
     justify-content: space-between;
     align-items: center;
 }
-
+#events{
+    width: 470px;
+    background-color: rgb(246,247,248);
+    padding: 20px;
+    padding-top: 0px;;
+    border-radius: 10px;
+}
 #events-header{
     display: flex;
     flex-direction: row;
@@ -57,6 +75,7 @@
     display: flex;
     transition: 0.35s;
     padding: 10px;
+    width: 450px;
 }
 
 .event-card:hover{
@@ -79,19 +98,37 @@
     justify-content: left;
     height: auto;
 }
-
+.event-card-text{
+    overflow: hidden;
+}
 .event-card p{
     margin: 0;
     padding: 0;
     margin-bottom:10px;
-
+}
+.event{
+    display: flex;
+}
+.event-detail-display{
+    padding: 10px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    align-items: left;
+    width: 100%;
+    background-color: white;
+}
+.event-detail-display img{
+    width: 100%;
 }
 
 .event-card-header h3, .event-card-header p, .event-card-header h4{
     margin: 0;
-    padding: 8px;
+    padding: 0px;
     padding-top: 0px;
     padding-left: 0px;
+    padding-right: 3px;
 }
 
 h1{

@@ -49,6 +49,13 @@ function App() {
           </Route>
         </Switch>
       )}
+      <div id='footer'>
+        <ul>
+          <li>
+            <a href='https://github.com/kmulloth'><i className='fa-brands fa-github'></i></a>
+          </li>
+        </ul>
+      </div>
     </>
   );
 }

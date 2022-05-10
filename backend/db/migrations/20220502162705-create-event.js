@@ -25,6 +25,11 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.fn('now')
       },
+      time: {
+        type: Sequelize.TIME,
+        allowNull: false,
+        defaultValue: Sequelize.fn('now')
+      },
       body: {
         type: Sequelize.TEXT,
         allowNull: false,

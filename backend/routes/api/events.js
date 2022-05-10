@@ -29,13 +29,14 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }))
 
 router.post("/new", requireAuth, asyncHandler(async (req, res) => {
-  const { user_id, imgUrl, name, date, body, attending } = req.body;
+  const { user_id, imgUrl, name, date, time, body, attending } = req.body;
 
   const event = await Event.create({
     user_id,
     imgUrl,
     name,
     date,
+    time,
     body,
     attending,
   });
@@ -45,7 +46,7 @@ router.post("/new", requireAuth, asyncHandler(async (req, res) => {
   }));
 
 router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
-    const { user_id, imgUrl, name, date, body, attending } = req.body;
+    const { user_id, imgUrl, name, date, time, body, attending } = req.body;
     console.log('IMAGE URL: ', imgUrl)
     const event = await Event.findOne({
       where: {
@@ -56,6 +57,7 @@ router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
     event.imgUrl = imgUrl;
     event.name = name;
     event.date = date;
+    event.time = time;
     event.body = body;
     event.attending = attending;
     await event.save();
