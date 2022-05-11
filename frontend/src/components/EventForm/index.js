@@ -27,7 +27,8 @@ function EventForm () {
         // console.log('date:', date, '--- today:', today);
         if (!name) errors.push('Title is required');
         if (!body) errors.push('Body is required');
-        if (date < today) errors.push('Date must be in the future');
+        console.log('COMPARISON:', date < today,'DATE:', date, '--- TODAY: ', today);
+        if (date <= today) errors.push('Date must be in the future');
         if (capacity < 1) errors.push('capacity is required');
 
 
@@ -59,7 +60,10 @@ function EventForm () {
                 <input type="text" name="title" onChange={e => setName(e.target.value)}/>
             </label>
             <label htmlFor='date'>Date:
-                <input type="date" name="date" onChange={e => setDate(e.target.value)}/>
+                <input type="date" name="date" onChange={e => {
+                    console.log('E.TARGET.VALUE: ',e.target.value)
+                    setDate(new Date(e.target.value))
+                    }}/>
             </label>
             <label htmlFor='time'>Time:
                 <input type="time" name="time" onChange={e => setTime(e.target.value)}/>
