@@ -29,7 +29,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }))
 
 router.post("/new", requireAuth, asyncHandler(async (req, res) => {
-  const { user_id, imgUrl, name, date, time, body, attending } = req.body;
+  const { user_id, imgUrl, name, date, time, body, capacity, attending } = req.body;
 
   const event = await Event.create({
     user_id,
@@ -38,6 +38,7 @@ router.post("/new", requireAuth, asyncHandler(async (req, res) => {
     date,
     time,
     body,
+    capacity,
     attending,
   });
   // console.log(event);

@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     imgUrl: DataTypes.STRING,
     name: DataTypes.STRING,
     body: DataTypes.TEXT,
+    capacity: DataTypes.INTEGER,
     attending: DataTypes.INTEGER
   }, {});
   Event.associate = function(models) {
