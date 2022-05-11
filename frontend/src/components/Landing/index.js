@@ -38,7 +38,7 @@ function Landing () {
 
     const openDetail = (eventId) => {
         setEventDetailId(eventId - 1);
-        if (showDetail) setShowDetail(false);
+        if (showDetail) return;
         setShowDetail(true);
     }
 
@@ -100,23 +100,20 @@ function Landing () {
                             state: {events: event}
                         }
 
+
                         return (
-                            <div className={`event ${event.id}`}>
-                                <div className='event-card' key={event?.id} onClick={e => openDetail(event?.id)}>
-                                    <div className='event-card-img'>
-                                        <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>
+                            <div className='event-card' key={event?.id} onClick={e => openDetail(event?.id)}>
+                                <div className='event-card-img'>
+                                    <img src={!event?.imgUrl ? 'https://farm4.static.flickr.com/3048/2618187623_27c6d8749d_o.jpg': event?.imgUrl} alt=''></img>
+                                </div>
+                                <div className='event-card-header'>
+                                    <p>{date}</p>
+                                    <div className='event-card-title'>
+                                        <h3>{event?.name}</h3>
+                                        <p>by</p>
+                                        <h4>{event?.User?.username}</h4>
                                     </div>
-                                    <div className='event-card-text'>
-                                        <div className='event-card-header'>
-                                            <p>{date}</p>
-                                            <div className='event-card-title'>
-                                                <h3>{event?.name}</h3>
-                                                <p>by</p>
-                                                <h4>{event?.User?.username}</h4>
-                                            </div>
-                                        </div>
-                                        <p>{event?.body}</p>
-                                    </div>
+                                    <p className={event?.capacity - event?.attending < 5 ? 'attending' : undefined }>{event?.capacity - event?.attending} Berths Remaining</p>
                                 </div>
                             </div>
                         )

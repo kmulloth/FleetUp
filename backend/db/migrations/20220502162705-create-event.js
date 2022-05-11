@@ -34,6 +34,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+      capacity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       attending: {
         type: Sequelize.INTEGER,
         allowNull: false,

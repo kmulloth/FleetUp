@@ -1,24 +1,23 @@
 #content{
     margin: 0;
-    height: 100%;
-    padding: 100px;
-    padding-top: 20px;
+    height: 100vh;
+    padding: 20px 100px;
     display: flex;
     justify-content: left;
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 #landing{
     margin: 0;
     padding-left: 120px;
-    border-bottom: 2px solid #e6e6e6;
+    border-bottom: 2px solid #ccc;
     height: 75px;
 }
 #user-sidebar{
     margin: 0px;
     right: 100px;
     background-color: rgb(246,247,248);
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     min-height: 600px;
 }
@@ -26,7 +25,7 @@
 #reservations, #groups{
     background-color: white;
     border: 2px solid #ddd;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     margin-bottom: 15px;
     width: 200px;
@@ -54,10 +53,10 @@
 }
 #events{
     width: 470px;
-    background-color: rgb(246,247,248);
+    background-color: white;
     padding: 20px;
     padding-top: 0px;;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 #events-header{
     display: flex;
@@ -69,7 +68,7 @@
 .event-card{
     border: 2px solid white;
     border-bottom: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-bottom: 10px;
     overflow: hidden;
     height: 100px;
@@ -80,14 +79,13 @@
 }
 
 .event-card:hover{
-    border-left: 1px solid red;
-    border-bottom: 1px solid red;
+    border-right: 4px solid red;
 }
 
 .event-card-img img{
     width: 150px;
     height: 75px;
-    border-radius: 10px;
+    border-radius: 7px;
     padding-left: 3px;
     padding-right: 5px;
 }
@@ -107,20 +105,24 @@
     padding: 0;
     margin-bottom:10px;
 }
+.attending{
+    color: red;
+}
 .event{
     display: flex;
 }
 .event-detail-display{
     padding: 10px;
-    margin: 20px;
+
     display: flex;
     flex-direction: column;
-    height: fit-content;
     align-items: left;
     width: 100%;
     background-color: white;
 }
 .event-detail-display img{
+    margin: 0;
+    padding: 0;
     width: 100%;
 }
 

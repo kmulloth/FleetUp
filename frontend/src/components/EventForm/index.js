@@ -10,6 +10,8 @@ function EventForm () {
     const [name, setName] = useState('');
     const [body, setBody] = useState('');
     const [date, setDate] = useState(today);
+    const [time, setTime] = useState('12:00');
+    const [capacity, setCapacity] = useState(0);
     const [imgUrl, setImgUrl] = useState('');
     const [errors, setErrors] = useState([]);
 
@@ -26,6 +28,8 @@ function EventForm () {
         if (!name) errors.push('Title is required');
         if (!body) errors.push('Body is required');
         if (date < today) errors.push('Date must be in the future');
+        if (capacity < 1) errors.push('capacity is required');
+
 
         setErrors(errors);
     }, [name, body, date]);
@@ -36,7 +40,7 @@ function EventForm () {
 
         const user_id = sessionUser.id;
 
-        const event = { user_id, imgUrl, name, date, body, attending: 0};
+        const event = { user_id, imgUrl, name, date, time, capacity, body, attending: 0};
         dispatch(createEvent(event)).then(() => {
             history.push('/')
         });
@@ -56,6 +60,12 @@ function EventForm () {
             </label>
             <label htmlFor='date'>Date:
                 <input type="date" name="date" onChange={e => setDate(e.target.value)}/>
+            </label>
+            <label htmlFor='time'>Time:
+                <input type="time" name="time" onChange={e => setTime(e.target.value)}/>
+            </label>
+            <label htmlFor='capacity'>Capacity:
+                <input type="number" name="capacity" onChange={e => setCapacity(e.target.value)}/>
             </label>
             <label htmlFor='body'>Body:
                 <textarea name="body" onChange={e => setBody(e.target.value)}/>
