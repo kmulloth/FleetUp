@@ -21,7 +21,8 @@ function Landing () {
 
     const [showDetail, setShowDetail] = useState(false);
     const [eventDetailId, setEventDetailId] = useState(1);
-    let event = events[eventDetailId];
+    const event = events.find(event => event.id === eventDetailId)
+
 
 
     const formattedDate = new Date(event?.date).toLocaleDateString('en-US', {
@@ -37,21 +38,24 @@ function Landing () {
     }
 
     const openDetail = (eventId) => {
-        setEventDetailId(eventId - 1);
+        setEventDetailId(eventId);
+        console.log(event);
         if (showDetail) return;
         setShowDetail(true);
     }
 
     useEffect(() => {
+        console.log(event)
+        if(!event && showDetail) setShowDetail(false);
         if (!showDetail) return;
 
         const closeDetail = () => {
             setShowDetail(false);
         }
 
-        document.addEventListener('click', closeDetail);
+        // document.addEventListener('click', closeDetail);
 
-        return () => document.removeEventListener("click", closeDetail);
+        // return () => document.removeEventListener("click", closeDetail);
       }, [showDetail]);
 
     useEffect(() => {
@@ -133,8 +137,8 @@ function Landing () {
                         </div>
                         <div id='event-buttons'>
                             {event?.User?.id === sessionUser.id ? <NavLink to={ location } >Edit Event</NavLink> : <></>}
-                            {event?.User?.id === sessionUser.id ? <ConfirmDeleteModal /> : <></>}
-                            {event?.User?.id !== sessionUser.id ? <RSVPModal /> : <></>}
+                            {event?.User?.id === sessionUser.id ? <ConfirmDeleteModal eventId={event?.id} setShowDetail={setShowDetail}/> : <></>}
+                            {event?.User?.id !== sessionUser.id ? <RSVPModal eventId={event?.id}/> : <></>}
                         </div>
                     </div>
                     <div id='event-detail-display-body'>

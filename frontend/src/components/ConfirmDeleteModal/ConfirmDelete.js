@@ -3,10 +3,8 @@ import * as eventActions from "../../store/events";
 import { useSelector, useDispatch} from "react-redux";
 import {useHistory, useParams} from "react-router-dom";
 
-function ConfirmDelete() {
-
-
-    const {eventId} = useParams();
+function ConfirmDelete({eventId, setShowDetail}) {
+    console.log('DELETE EVENT:',eventId)
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -14,13 +12,11 @@ function ConfirmDelete() {
         e.preventDefault();
 
         dispatch(eventActions.deleteOneEvent(eventId))
-        history.push("/");
+        setShowDetail(false);
     };
 
-    console.log(eventId)
-
     return (
-        <form action={`/api/events/${eventId}`} method="delete" onSubmit={handleSubmit}>
+        <form action={`/api/events/${eventId}`} method="delete" onSubmit={e => handleSubmit(e)}>
             <p>Are you sure you want to Delete this Event?</p>
             <button type="submit" value="Delete Event">Yes</button>
         </form>

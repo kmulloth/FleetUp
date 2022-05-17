@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import ConfirmDelete from './ConfirmDelete';
 
-function ConfirmDeleteModal() {
+function ConfirmDeleteModal({eventId, setShowDetail}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -13,7 +13,7 @@ function ConfirmDeleteModal() {
         }}>Delete</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <ConfirmDelete />
+          <ConfirmDelete eventId={eventId}/>
         </Modal>
       )}
     </>

@@ -9,7 +9,6 @@ function ConfirmDeleteRSVPModal({rsvp}) {
         <>
             <i className='fa-solid fa-trash-can' onClick={() => {
                 setShowModal(true)
-                console.log('TEST DELETE i', showModal)
                 }}></i>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
